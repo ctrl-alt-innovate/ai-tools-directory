@@ -22,6 +22,30 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   return {
     title: post.seoTitle,
     description: post.metaDescription,
+    keywords: post.tags,
+    authors: [{ name: post.author.name }],
+    publishedTime: post.publishedAt,
+    openGraph: {
+      title: post.seoTitle,
+      description: post.metaDescription,
+      type: "article",
+      publishedTime: post.publishedAt,
+      authors: [post.author.name],
+      images: [
+        {
+          url: post.featuredImage || "/images/blog/default-featured.png",
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.seoTitle,
+      description: post.metaDescription,
+      images: [post.featuredImage || "/images/blog/default-featured.png"],
+    },
   };
 }
 
@@ -36,8 +60,49 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     .filter(p => p.category === post.category && p.slug !== post.slug)
     .slice(0, 3);
 
+  // Article Schema for SEO
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": [
+      post.featuredImage || "/images/blog/default-featured.png"
+    ],
+    "author": {
+      "@type": "Person",
+      "name": post.author.name,
+      "description": post.author.bio,
+      "image": post.author.avatar
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "AI Commissions",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://aicommisions.com/images/logo.png"
+      }
+    },
+    "datePublished": post.publishedAt,
+    "dateModified": post.publishedAt,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://aicommisions.com/blog/${post.slug}`
+    },
+    "keywords": post.tags.join(", "),
+    "articleSection": post.category,
+    "wordCount": post.content.length,
+    "timeRequired": `PT${post.readTime}M`
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleSchema),
+        }}
+      />
       <Navigation />
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Breadcrumb */}

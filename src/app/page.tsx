@@ -216,7 +216,7 @@ export default function Home() {
           </div>
         </section>      {/* Footer */}
       <footer className="text-center text-sm text-gray-500 pt-12 border-t">
-        &copy; {new Date().getFullYear()} AI Tools Directory. All rights reserved.
+        &copy; {new Date().getFullYear()} AI Commissions. All rights reserved.
       </footer>
     </main>
     </>

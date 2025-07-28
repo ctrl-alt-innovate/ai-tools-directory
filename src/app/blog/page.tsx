@@ -4,6 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { blogPosts } from "@/data/BlogPosts";
 import Navigation from "@/components/Navigation";
+import { Metadata } from "next";
+
+// Note: Since this is a client component, we'll add metadata via Head component or handle it differently
+// For now, the metadata will be handled by the layout
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -23,8 +27,43 @@ export default function BlogPage() {
 
   const featuredPosts = blogPosts.filter(post => post.isFeatured);
 
+  // Blog Schema for SEO
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "AI Commissions Blog",
+    "description": "Expert insights on AI tools, affiliate marketing strategies, and recurring commission opportunities",
+    "url": "https://aicommisions.com/blog",
+    "publisher": {
+      "@type": "Organization",
+      "name": "AI Commissions",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://aicommisions.com/images/logo.png"
+      }
+    },
+    "blogPost": blogPosts.slice(0, 10).map(post => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.excerpt,
+      "url": `https://aicommisions.com/blog/${post.slug}`,
+      "datePublished": post.publishedAt,
+      "author": {
+        "@type": "Person",
+        "name": post.author.name
+      },
+      "image": post.featuredImage || "/images/blog/default-featured.png"
+    }))
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogSchema),
+        }}
+      />
       <Navigation />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
@@ -65,30 +104,47 @@ export default function BlogPage() {
               {featuredPosts.map((post) => (
                 <article key={post.slug} className="group relative">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-400 to-pink-400 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                  <div className="relative bg-white rounded-2xl p-6 hover:shadow-2xl transition-all duration-300">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="px-3 py-1 bg-orange-100 text-orange-800 text-xs font-semibold rounded-full">
-                        ⭐ FEATURED
-                      </span>
-                      <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
-                        {post.category}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-blue-600 transition-colors">
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-600 mb-4 leading-relaxed">{post.excerpt}</p>
-                    <div className="flex items-center justify-between text-sm text-gray-500">
-                      <div className="flex items-center gap-4">
-                        <span>📅 {new Date(post.publishedAt).toLocaleDateString()}</span>
-                        <span>⏱️ {post.readTime} min read</span>
+                  <div className="relative bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300">
+                    {/* Featured Image */}
+                    <div className="relative h-48 bg-gradient-to-br from-blue-600 to-purple-600 overflow-hidden">
+                      {post.featuredImage ? (
+                        <img 
+                          src={post.featuredImage} 
+                          alt={post.title}
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-white">
+                          <span className="text-6xl opacity-80">🤖</span>
+                        </div>
+                      )}
+                      <div className="absolute top-4 left-4 flex gap-2">
+                        <span className="px-3 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full shadow-lg">
+                          ⭐ FEATURED
+                        </span>
+                        <span className="px-3 py-1 bg-black/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full">
+                          {post.category}
+                        </span>
                       </div>
-                      <Link
-                        href={`/blog/${post.slug}`}
-                        className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
-                      >
-                        Read More →
-                      </Link>
+                    </div>
+                    
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-blue-600 transition-colors">
+                        {post.title}
+                      </h3>
+                      <p className="text-gray-600 mb-4 leading-relaxed">{post.excerpt}</p>
+                      <div className="flex items-center justify-between text-sm text-gray-500">
+                        <div className="flex items-center gap-4">
+                          <span>📅 {new Date(post.publishedAt).toLocaleDateString()}</span>
+                          <span>⏱️ {post.readTime} min read</span>
+                        </div>
+                        <Link
+                          href={`/blog/${post.slug}`}
+                          className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                        >
+                          Read More →
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </article>
@@ -122,48 +178,67 @@ export default function BlogPage() {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {filteredPosts.map((post) => (
               <article key={post.slug} className="group">
-                <div className="bg-white rounded-2xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
-                      {post.category}
-                    </span>
-                    {post.tags.slice(0, 1).map(tag => (
-                      <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
-                    {post.title}
-                  </h3>
-                  
-                  <p className="text-gray-600 mb-4 leading-relaxed line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                    <div className="flex items-center gap-4">
-                      <span>📅 {new Date(post.publishedAt).toLocaleDateString()}</span>
-                      <span>⏱️ {post.readTime} min</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={post.author.avatar}
-                        alt={post.author.name}
-                        className="w-8 h-8 rounded-full bg-gray-200"
+                <div className="bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+                  {/* Featured Image */}
+                  <div className="relative h-48 bg-gradient-to-br from-blue-600 to-purple-600 overflow-hidden">
+                    {post.featuredImage ? (
+                      <img 
+                        src={post.featuredImage} 
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                       />
-                      <span className="text-sm font-medium text-gray-700">{post.author.name}</span>
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-white">
+                        <span className="text-4xl opacity-80">🤖</span>
+                      </div>
+                    )}
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      <span className="px-3 py-1 bg-black/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full">
+                        {post.category}
+                      </span>
                     </div>
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
-                    >
-                      Read Post
-                    </Link>
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      {post.tags.slice(0, 2).map(tag => (
+                        <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                    
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+                      {post.title}
+                    </h3>
+                    
+                    <p className="text-gray-600 mb-4 leading-relaxed line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                    
+                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                      <div className="flex items-center gap-4">
+                        <span>📅 {new Date(post.publishedAt).toLocaleDateString()}</span>
+                        <span>⏱️ {post.readTime} min</span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={post.author.avatar}
+                          alt={post.author.name}
+                          className="w-8 h-8 rounded-full bg-gray-200"
+                        />
+                        <span className="text-sm font-medium text-gray-700">{post.author.name}</span>
+                      </div>
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
+                      >
+                        Read Post
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </article>

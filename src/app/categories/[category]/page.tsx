@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   }
 
   return {
-    title: `Best ${category.name} Tools 2025 - AI Tools Directory`,
+    title: `Best ${category.name} Tools 2025 - AI Commissions`,
     description: `Discover the top ${category.name.toLowerCase()} tools with affiliate programs. ${category.description}`,
   }
 }

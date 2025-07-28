@@ -35,9 +35,9 @@ export default function Navigation() {
           </div>
           <div>
             <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              AI Tools Directory
+              AI Commissions
             </span>
-            <div className="text-xs text-gray-500">Affiliate Programs</div>
+            <div className="text-xs text-gray-500">AI Tool Affiliate Programs</div>
           </div>
         </Link>
         
