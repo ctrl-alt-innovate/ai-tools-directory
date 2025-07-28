@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 import { tools } from "@/data/Tools";
 import Navigation from "@/components/Navigation";
@@ -59,9 +61,21 @@ export default function Home() {
                       alt={tool.name}
                       className="w-12 h-12 object-contain rounded-lg"
                     />
-                    <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
-                      {tool.category}
-                    </span>
+                    <div className="flex gap-2">
+                      {tool.isNew && (
+                        <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
+                          NEW
+                        </span>
+                      )}
+                      {tool.isPopular && (
+                        <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs font-semibold rounded-full">
+                          POPULAR
+                        </span>
+                      )}
+                      <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
+                        {tool.category}
+                      </span>
+                    </div>
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-gray-900">{tool.name}</h3>
                   <p className="text-gray-600 mb-6 leading-relaxed">{tool.description}</p>
@@ -79,6 +93,11 @@ export default function Home() {
                       href={tool.affiliateUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => {
+                        console.log(`Affiliate click: ${tool.name} from homepage`);
+                        // You can replace this with your analytics tracking
+                        // Example: analytics.track('affiliate_click', { tool: tool.name, page: 'homepage' });
+                      }}
                       className="text-center text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200"
                     >
                       Try {tool.name} →

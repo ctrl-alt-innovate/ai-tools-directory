@@ -61,6 +61,14 @@ export default function Navigation() {
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
+              <NavigationMenuLink 
+                href="/blog"
+                className="px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200 font-medium"
+              >
+                Blog
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
               <NavigationMenuTrigger className="px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200 font-medium">
                 Categories
               </NavigationMenuTrigger>
@@ -136,6 +144,13 @@ export default function Navigation() {
               onClick={() => setIsMenuOpen(false)}
             >
               All Tools
+            </Link>
+            <Link
+              href="/blog"
+              className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Blog
             </Link>
             
             {/* Categories Section */}

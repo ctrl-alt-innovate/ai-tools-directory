@@ -5,6 +5,8 @@ export interface Tool {
   category: string;
   affiliateUrl: string;
   imageUrl: string;
+  isNew?: boolean;
+  isPopular?: boolean;
 }
 
 export const tools: Tool[] = [
@@ -16,6 +18,7 @@ export const tools: Tool[] = [
     category: "AI Writing",
     affiliateUrl: "https://jasper.ai/affiliate?ref=yourref",
     imageUrl: "/images/jasper-ai.png",
+    isPopular: true,
   },
   {
     slug: "writesonic",
@@ -24,6 +27,7 @@ export const tools: Tool[] = [
     category: "AI Writing",
     affiliateUrl: "https://writesonic.com/affiliate?ref=yourref",
     imageUrl: "/images/writesonic.png",
+    isNew: true,
   },
   {
     slug: "copy-ai",
@@ -58,6 +62,7 @@ export const tools: Tool[] = [
     category: "AI Video",
     affiliateUrl: "https://synthesia.io/affiliate?ref=yourref",
     imageUrl: "/images/synthesia.png",
+    isPopular: true,
   },
   {
     slug: "pictory",
