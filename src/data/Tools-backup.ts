@@ -1,4 +1,4 @@
-export interface Tool {
+/*export interface Tool {
    {
     slug: "copy-ai",
     name: "Copy.ai",
@@ -188,4 +188,4 @@ export const tools: Tool[] = [
     affiliateUrl: "https://copy.ai/affiliate?ref=yourref",
     imageUrl: "/images/copy-ai.png",
   },
-];
+];*/

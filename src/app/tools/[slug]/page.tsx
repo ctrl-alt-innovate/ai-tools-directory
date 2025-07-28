@@ -79,8 +79,8 @@ export default async function ToolPage({ params }: ToolPageProps) {
                 leverage AI technology to improve their workflow and productivity.
               </p>
               <p className="text-gray-700 leading-relaxed">
-                Whether you're a content creator, marketer, or business owner, {tool.name} provides 
-                the tools you need to stay competitive in today's AI-driven landscape.
+                Whether you&apos;re a content creator, marketer, or business owner, {tool.name} provides 
+                the tools you need to stay competitive in today&apos;s AI-driven landscape.
               </p>
             </div>
             

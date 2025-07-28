@@ -49,7 +49,7 @@ export default function Home() {
             <p className="text-lg text-gray-600">Hand-picked tools with the best affiliate programs</p>
           </div>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {tools.slice(0, 6).map((tool, index) => (
+            {tools.slice(0, 6).map((tool) => (
               <div key={tool.slug} className="group relative">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
                 <div className="relative bg-white rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">

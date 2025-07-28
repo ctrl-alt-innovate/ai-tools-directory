@@ -115,7 +115,7 @@ export default function AffiliateProgramsPage() {
             <div>
               <h3 className="text-lg font-semibold mb-3">🎯 Content Ideas</h3>
               <ul className="space-y-2 text-gray-700">
-                <li>• "Best AI tools for [specific use case]"</li>
+                <li>• &ldquo;Best AI tools for [specific use case]&rdquo;</li>
                 <li>• Tool comparison posts</li>
                 <li>• Tutorial videos</li>
                 <li>• Case studies and results</li>

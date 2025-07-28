@@ -131,7 +131,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
               <span className="text-4xl">🔍</span>
             </div>
             <h3 className="text-xl font-semibold mb-2">No tools found yet</h3>
-            <p className="text-gray-600 mb-6">We're constantly adding new tools to this category.</p>
+            <p className="text-gray-600 mb-6">We&apos;re constantly adding new tools to this category.</p>
             <Link href="/" className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
               Browse all tools
               <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
