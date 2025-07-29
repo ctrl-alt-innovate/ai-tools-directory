@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { tools } from "@/data/Tools";
 import Navigation from "@/components/Navigation";
+import ToolImage from "@/components/ToolImage";
 import Link from "next/link";
 
 interface ToolPageProps {
@@ -277,6 +278,90 @@ export default async function ToolPage({ params }: ToolPageProps) {
             </div>
           </div>
         )}
+
+        {/* Brand Assets & Affiliate Disclaimer */}
+        <div className="bg-gray-50 rounded-3xl p-8 mb-12 border border-gray-200">
+          <div className="flex items-center justify-center mb-6">
+            <div className="text-center">
+              <div className="mb-4">
+                <ToolImage 
+                  src={tool.imageUrl} 
+                  alt={`${tool.name} Official Logo`}
+                  className="w-20 h-20 mx-auto rounded-2xl shadow-lg"
+                />
+              </div>
+              <p className="text-sm text-gray-600 mb-4">
+                {tool.name} is a registered trademark of its respective owners.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-white rounded-2xl p-6 border-l-4 border-blue-500">
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Affiliate Disclosure</h3>
+                <p className="text-gray-700 mb-3">
+                  <strong>Transparency Notice:</strong> We may earn a commission if you sign up for {tool.name} via our affiliate link. 
+                  This comes at no additional cost to you and helps us maintain this free resource.
+                </p>
+                <p className="text-sm text-gray-600 mb-3">
+                  Our {tool.commissionRate || "30%"} commission rate allows us to provide detailed, unbiased reviews and recommendations. 
+                  We only promote tools we genuinely believe can benefit our users.
+                </p>
+                <div className="bg-blue-50 rounded-lg p-3">
+                  <p className="text-sm text-blue-800">
+                    <strong>Our Promise:</strong> All opinions and recommendations are our own. We thoroughly test and evaluate 
+                    each tool before featuring it on AI Commissions.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Legal & Compliance */}
+        <div className="bg-white rounded-3xl p-8 mb-12 shadow-lg border border-gray-200">
+          <h2 className="text-2xl font-bold mb-6 text-gray-900">Legal & Compliance</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold mb-3 text-gray-900">Trademark Notice</h3>
+              <p className="text-gray-600 mb-4">
+                {tool.name}™ and all related marks are trademarks of their respective owners. 
+                All company, product and service names used in this website are for identification purposes only.
+              </p>
+              <p className="text-sm text-gray-500">
+                Use of these names, trademarks and brands does not imply endorsement.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-3 text-gray-900">Affiliate Program Terms</h3>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  Official {tool.name} affiliate partner
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  {tool.commissionRate || "30%"} commission on qualifying purchases
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  No additional cost to customers
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  Compliant with FTC guidelines
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
         {/* Enhanced CTA Section */}
         <div className="relative overflow-hidden rounded-3xl mb-12">
