@@ -14,13 +14,13 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50 rounded-3xl opacity-50"></div>
           <div className="relative z-10 py-20">
             <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-6">
-              🚀 New AI tools added weekly
+              � High-Converting AI Affiliate Programs
             </div>
             <h1 className="text-6xl font-extrabold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent leading-tight">
-              Discover Top AI Tools<br />That Pay You
+              Discover the Best AI Tools<br />to Promote — and Earn<br />Recurring Income
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Curated AI tools with high-converting affiliate programs. Start promoting, earn passive income with the best tools in the market.
+            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+              Find profitable AI tools with generous affiliate programs. Get detailed commission rates, conversion tips, and proven strategies to build your recurring income stream.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
@@ -33,10 +33,13 @@ export default function Home() {
                 </svg>
               </Link>
               <Link
-                href="/affiliate-programs"
+                href="/blog"
                 className="inline-flex items-center px-8 py-4 border-2 border-gray-300 text-gray-700 text-lg font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 transition-all duration-300"
               >
-                View Programs
+                Start Learning
+                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
               </Link>
             </div>
           </div>
